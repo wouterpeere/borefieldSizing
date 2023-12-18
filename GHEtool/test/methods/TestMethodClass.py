@@ -5,6 +5,8 @@ from GHEtool import Borefield
 from typing import List
 import copy
 
+import numpy as np
+
 
 class SizingObject:
 
@@ -38,6 +40,15 @@ class OptimiseLoadProfileObject:
         self.peak_heating_ext = peak_heating_ext
         self.peak_cooling_ext = peak_cooling_ext
         self.name = name
+
+    def test(self):  # pragma: no cover
+        self.borefield.optimise_load_profile(self.load, self.depth, self.SCOP, self.SEER)
+        assert np.isclose(self.borefield._percentage_heating, self.percentage_heating)
+        assert np.isclose(self.borefield._percentage_cooling, self.percentage_cooling)
+        assert np.isclose(self.borefield.load.max_peak_heating, self.peak_heating_geo)
+        assert np.isclose(self.borefield.load.max_peak_cooling, self.peak_cooling_geo)
+        assert np.isclose(self.borefield._external_load.max_peak_heating, self.peak_heating_ext)
+        assert np.isclose(self.borefield._external_load.max_peak_cooling, self.peak_cooling_ext)
 
 
 class TestMethodClass():

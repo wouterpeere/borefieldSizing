@@ -87,6 +87,8 @@ In a future version of GHEtool, also secundary building loads will be included. 
 * _HourlyGeothermalLoad_: You can set (or load) the hourly heating and cooling load of a standard year which will be used for all years within the simulation period.
 * _HourlyGeothermalLoadMultiYear_: You can set (or load) the hourly heating and cooling load for multiple years (i.e. for the whole simulation period). This way, you can use secundary loads already with GHEtool as shown in [this example](https://ghetool.readthedocs.io/en/stable/sources/code/Examples/active_passive_cooling.html).
 
+All load classes also have the option to add a yearly domestic hot water usage.
+
 Please note that it is possible to add your own load types by inheriting the attributes from the abstract _LoadData class.
 
 
@@ -130,10 +132,10 @@ we set the borehole equivalent thermal resistance.
 ```Python
 # create the borefield object
 borefield = Borefield(load=load
-					  peak_heating=peak_heating,
-                      peak_cooling=peak_cooling,
-                      baseload_heating=monthly_load_heating,
-                      baseload_cooling=monthly_load_cooling)
+peak_heating = peak_heating,
+peak_cooling = peak_cooling,
+baseload_heating = monthly_load_heating,
+baseload_cooling = monthly_load_cooling)
 
 # set ground parameters
 borefield.set_ground_parameters(data)
@@ -142,8 +144,8 @@ borefield.set_ground_parameters(data)
 borefield.Rb = 0.12
 
 # set temperature boundaries
-borefield.set_max_ground_temperature(16)  # maximum temperature
-borefield.set_min_ground_temperature(0)  # minimum temperature
+borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 ```
 
 Next we create a rectangular borefield.

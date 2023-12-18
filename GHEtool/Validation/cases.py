@@ -83,8 +83,8 @@ def check_cases():
         borefield.Rb = 0.2
 
         # set temperature boundaries
-        borefield.set_max_ground_temperature(16)  # maximum temperature
-        borefield.set_min_ground_temperature(0)  # minimum temperature
+        borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+        borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
         borefield.size(100, L2_sizing=True)
         print(f'correct answer L2: {correct_answers_L2[i-1]}; calculated answer L2: {round(borefield.H,2)}; error: '
@@ -117,16 +117,15 @@ def check_custom_datafile():
         borefield.Rb = 0.2
 
         # set temperature boundaries
-        borefield.set_max_ground_temperature(16)  # maximum temperature
-        borefield.set_min_ground_temperature(0)  # minimum temperature
+        borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+        borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
         borefield.size(100, L3_sizing=True)
         print(f'correct answer: {correct_answers[i-1]}; calculated '
               f'answer: {round(borefield.H,2)}; error: '
               f'{round(abs(1-borefield.H/correct_answers[i - 1])*100,4)} %')
-        # assert abs(1-borefield.H/correct_answers[i - 1]) <= 0.002
 
 
 if __name__ == "__main__":   # pragma: no cover
-    # check_cases()  # check different cases
+    check_cases()  # check different cases
     check_custom_datafile()  # check if the custom datafile is correct

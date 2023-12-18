@@ -157,7 +157,6 @@ def test_calculate_borehole_equivalent_resistance_coaxial():
                          r_out=np.array([r_out_out, r_in_out]) if is_inner_inlet else
                          np.array([r_in_out, r_out_out]),
                          borehole=borehole, k_s=i, k_g=k_g, R_ff=pipe_ghe.R_ff, R_fp=pipe_ghe.R_fp, J=2)
-        print(pipe._Rd)
 
 
 def test_pipe_data_equal_coaxial():

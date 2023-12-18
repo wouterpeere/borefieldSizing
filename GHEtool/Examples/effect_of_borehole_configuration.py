@@ -40,8 +40,8 @@ def effect_borefield_configuration():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)   # maximum temperature
-    borefield.set_min_ground_temperature(0)    # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)   # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)    # minimum temperature
 
     # size borefield
     depth = borefield.size()

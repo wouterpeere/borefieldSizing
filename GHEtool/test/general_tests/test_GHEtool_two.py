@@ -8,6 +8,7 @@ import pygfunction as gt
 import pytest
 
 from GHEtool import *
+from GHEtool.VariableClasses.BaseClass import UnsolvableDueToTemperatureGradient
 
 data = GroundConstantTemperature(3, 10)
 data_ground_flux = GroundFluxTemperature(3, 10)
@@ -81,8 +82,8 @@ def test_different_heating_cooling_peaks():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
     borefield.set_length_peak_cooling(8)
     assert borefield.load.peak_cooling_duration == 8 * 3600
     assert borefield.load.peak_heating_duration == 6 * 3600
@@ -99,9 +100,9 @@ def test_stuck_in_loop():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
-    borefield.sizing_setup(max_nb_of_iterations=50)
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
+    borefield.calculation_setup(max_nb_of_iterations=500)
 
     borefield.size()
     borefield.set_length_peak_cooling(8)
@@ -121,8 +122,8 @@ def test_different_results_with_other_peak_lengths():
     borefield.set_borefield(copy.copy(borefield_gt))
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     borefield.set_length_peak(2)
     init_length_L2 = borefield.size_L2()
@@ -141,8 +142,8 @@ def test_reset_temp_profiles_when_loaded(monkeypatch):
     borefield.set_borefield(copy.copy(borefield_gt))
 
     borefield.calculate_temperatures()
-    Tmax = borefield.results_peak_heating.copy()
-    Tmin = borefield.results_peak_cooling.copy()
+    Tmax = borefield.results.peak_cooling.copy()
+    Tmin = borefield.results.peak_heating.copy()
 
     monthlyLoadCooling, monthlyLoadHeating, peakCooling, peakHeating = load_case(2)
     borefield.set_baseload_cooling(monthlyLoadCooling)
@@ -152,8 +153,8 @@ def test_reset_temp_profiles_when_loaded(monkeypatch):
 
     borefield.print_temperature_profile()
 
-    assert not np.array_equal(Tmax, borefield.results_peak_heating)
-    assert not np.array_equal(Tmin, borefield.results_peak_cooling)
+    assert not np.array_equal(Tmax, borefield.results.peak_heating)
+    assert not np.array_equal(Tmin, borefield.results.peak_cooling)
 
 
 def test_no_possible_solution():
@@ -163,23 +164,24 @@ def test_no_possible_solution():
     borefield.set_borefield(copy.copy(borefield_gt))
 
     # limited by cooling
-    borefield.set_max_ground_temperature(14)  # maximum temperature
-    borefield.set_min_ground_temperature(3)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(14)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(3)  # minimum temperature
     borefield.size()
 
     # limited by heating, but no problem for cooling
-    borefield.set_max_ground_temperature(15)
-    borefield.set_min_ground_temperature(2)
+    borefield.set_max_avg_fluid_temperature(15)
+    borefield.set_min_avg_fluid_temperature(2)
     borefield.set_baseload_heating(borefield.load.baseload_heating * 5)
     borefield.size()
 
     # limited by heating, but problem for cooling --> no solution
-    borefield.set_max_ground_temperature(14)
-    borefield.set_min_ground_temperature(2)
+    borefield.set_max_avg_fluid_temperature(14)
+    borefield.set_min_avg_fluid_temperature(2)
     borefield.set_baseload_heating(borefield.load.baseload_heating * 5)
     try:
         borefield.size(L3_sizing=True)
-    except ValueError:
+        assert False  # pragma: no cover
+    except UnsolvableDueToTemperatureGradient:
         assert True
 
 
@@ -214,8 +216,8 @@ def test_problem_with_gfunction_calc_obj():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # size borefield
     assert np.isclose(borefield.size(), 190.2116676694166)

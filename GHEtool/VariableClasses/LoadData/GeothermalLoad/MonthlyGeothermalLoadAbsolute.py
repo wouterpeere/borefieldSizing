@@ -18,7 +18,8 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
                  baseload_cooling: Union[np.ndarray, list, tuple] = np.zeros(12),
                  peak_heating: Union[np.ndarray, list, tuple] = np.zeros(12),
                  peak_cooling: Union[np.ndarray, list, tuple] = np.zeros(12),
-                 simulation_period: int = 20):
+                 simulation_period: int = 20,
+                 dhw: float = 0.):
         """
 
         Parameters
@@ -33,6 +34,8 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
             Peak cooling values [kW/month]
         simulation_period : int
             Length of the simulation period in years
+        dhw : float
+            Yearly consumption of domestic hot water [kWh/year]
         """
 
         super().__init__(hourly_resolution=False, simulation_period=simulation_period)
@@ -48,6 +51,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
         self.baseload_cooling = baseload_cooling
         self.peak_heating = peak_heating
         self.peak_cooling = peak_cooling
+        self.dhw = dhw
 
     def _check_input(self, input: Union[np.ndarray, list, tuple]) -> bool:
         """
@@ -112,9 +116,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
             values
         """
         if self._check_input(load):
-            self._baseload_cooling = load
-            # set peak load
-            self.peak_cooling = np.maximum(self.peak_cooling, self.baseload_cooling_power)
+            self._baseload_cooling = np.array(load)
             return
         raise ValueError
 
@@ -144,14 +146,14 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
     @property
     def baseload_heating(self) -> np.ndarray:
         """
-        This function returns the baseload heating in kWh/month.
+        This function returns the baseload heating in kWh/month (incl. DHW).
 
         Returns
         -------
         baseload heating : np.ndarray
-            Baseload heating values [kWh/month] for one year, so the length of the array is 12
+            Baseload heating values (incl. DHW) [kWh/month] for one year, so the length of the array is 12
         """
-        return self._baseload_heating
+        return self._baseload_heating + self.dhw / 8760 * self.UPM
 
     @baseload_heating.setter
     def baseload_heating(self, load: Union[np.ndarray, list, tuple]) -> None:
@@ -177,8 +179,6 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
         """
         if self._check_input(load):
             self._baseload_heating = np.array(load)
-            # set peak load
-            self.peak_heating = np.maximum(self.peak_heating, self.baseload_heating_power)
             return
         raise ValueError
 
@@ -215,7 +215,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
         peak cooling : np.ndarray
             Peak cooling values for one year, so the length of the array is 12
         """
-        return self._peak_cooling
+        return np.maximum(self._peak_cooling, self.baseload_cooling_power)
 
     @peak_cooling.setter
     def peak_cooling(self, load) -> None:
@@ -239,7 +239,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
             values
         """
         if self._check_input(load):
-            self._peak_cooling = np.maximum(load, self.baseload_cooling_power)
+            self._peak_cooling = np.array(load)
             return
         raise ValueError
 
@@ -275,7 +275,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
         peak heating : np.ndarray
             Peak heating values for one year, so the length of the array is 12
         """
-        return self._peak_heating
+        return np.maximum(np.array(self._peak_heating) + self.dhw_power, self.baseload_heating_power)
 
     @peak_heating.setter
     def peak_heating(self, load: Union[np.ndarray, list, tuple]) -> None:
@@ -299,7 +299,7 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
             values
         """
         if self._check_input(load):
-            self._peak_heating = np.maximum(load, self.baseload_heating_power)
+            self._peak_heating = np.array(load)
             return
         raise ValueError
 
@@ -324,3 +324,18 @@ class MonthlyGeothermalLoadAbsolute(_LoadData):
             values
         """
         self.peak_heating = np.array(load)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, MonthlyGeothermalLoadAbsolute):
+            return False
+        if not np.array_equal(self.baseload_heating, other.baseload_heating):
+            return False
+        if not np.array_equal(self.baseload_cooling, other.baseload_cooling):
+            return False
+        if not np.array_equal(self.peak_heating, other.peak_heating):
+            return False
+        if not np.array_equal(self.peak_cooling, other.peak_cooling):
+            return False
+        if not self.simulation_period == other.simulation_period:
+            return False
+        return True

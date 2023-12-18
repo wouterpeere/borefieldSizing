@@ -3,7 +3,7 @@ from GHEtool.VariableClasses.GroundData._GroundData import _GroundData
 
 class GroundFluxTemperature(_GroundData):
 
-    __slots__ = _GroundData.__slots__ + ('flux', 'Tg')
+    __slots__ = _GroundData.__slots__ + ('flux',)
 
     def __init__(self, k_s: float = None,
                  T_g: float = None,
@@ -44,3 +44,19 @@ class GroundFluxTemperature(_GroundData):
         # geothermal gradient is equal to the geothermal heat flux divided by the thermal conductivity
         # avg ground temperature is (Tg + gradient + Tg) / 2 = Tg + gradient / 2
         return self.Tg + H * self.flux / self.k_s / 2
+
+    def calculate_delta_H(self, temperature_diff: float) -> float:
+        """
+        This function calculates the difference in depth for a given difference in temperature.
+
+        Parameters
+        ----------
+        temperature_diff : float
+            Difference in temperature [deg C]
+
+        Returns
+        -------
+        float
+            Difference in depth [m]
+        """
+        return temperature_diff * 2 * self.k_s / self.flux

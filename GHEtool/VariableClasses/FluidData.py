@@ -3,9 +3,6 @@ This document contains the variable classes for the fluid data.
 """
 from __future__ import annotations
 
-from math import pi
-
-import numpy as np
 import pygfunction as gt
 
 from GHEtool.VariableClasses.BaseClass import BaseClass
@@ -58,6 +55,24 @@ class FluidData(BaseClass):
         None
         """
         self.mfr = mfr
+
+    def import_fluid_from_pygfunction(self, fluid_object: gt.media.Fluid) -> None:
+        """
+        This function loads a fluid object from pygfunction and imports it into GHEtool.
+        Note that this object does not contain the mass flow rate!
+
+        Parameters
+        ----------
+        fluid_object : Fluid object from pygfunction
+
+        Returns
+        -------
+        None
+        """
+        self.k_f = fluid_object.k
+        self.rho = fluid_object.rho
+        self.Cp = fluid_object.cp
+        self.mu = fluid_object.mu
 
     def __eq__(self, other):
         if not isinstance(other, FluidData):

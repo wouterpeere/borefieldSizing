@@ -94,7 +94,7 @@ class GFunction:
         self.previous_depth: float = 0.
 
         self.no_extrapolation: bool = True
-        self.threshold_depth_interpolation: float = 25  # m
+        self.threshold_depth_interpolation: float = .25  # %
 
         self.fifo_list: FIFO = FIFO(8)
 
@@ -335,20 +335,20 @@ class GFunction:
         if depth > val_depth:
             # the nearest index is the first in the array and the depth is smaller than the smallest value in the array
             # but the difference is smaller than the threshold for interpolation
-            if idx_depth == self.depth_array.size - 1 and depth - val_depth < self.threshold_depth_interpolation:
+            if idx_depth == self.depth_array.size - 1 and depth - val_depth < self.threshold_depth_interpolation * depth:
                 return idx_depth, None
             elif idx_depth != self.depth_array.size - 1:
                 idx_next = idx_depth + 1
-                if self.depth_array[idx_next] - val_depth < self.threshold_depth_interpolation:
+                if self.depth_array[idx_next] - val_depth < self.threshold_depth_interpolation * depth:
                     return idx_depth, idx_next
         else:
             # the nearest index is the last in the array and the depth is larger than the highest value in the array
             # but the difference is smaller than the threshold for interpolation
-            if idx_depth == 0 and val_depth - depth < self.threshold_depth_interpolation:
+            if idx_depth == 0 and val_depth - depth < self.threshold_depth_interpolation * depth:
                 return None, idx_depth
             elif idx_depth != 0:
                 idx_prev = idx_depth - 1
-                if val_depth - self.depth_array[idx_prev] < self.threshold_depth_interpolation:
+                if val_depth - self.depth_array[idx_prev] < self.threshold_depth_interpolation * depth:
                     return idx_prev, idx_depth
 
         # no correct interpolation indices are found

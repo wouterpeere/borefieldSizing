@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from platform import system
 from sys import argv
+from ScenarioGUI import load_config
+load_config(Path(__file__).parent.joinpath("gui_config.ini"))
 
 os_system = system()
 is_frozen = getattr(sys, 'frozen', False) and os_system == 'Windows'  # pragma: no cover
@@ -29,9 +31,8 @@ def run(path_list=None):  # pragma: no cover
     from GHEtool.gui.data_2_borefield_func import data_2_borefield
     from GHEtool.gui.gui_classes.translation_class import Translations
     from GHEtool.gui.gui_structure import GUI
-    from ScenarioGUI import load_config
-    load_config(Path(__file__).parent.joinpath("gui_config.ini"))
     from GHEtool.gui.gui_classes.gui_combine_window import MainWindow
+    import ScenarioGUI.global_settings as globs
 
     if is_frozen:
         pyi_splash.update_text('Loading ...')
@@ -39,10 +40,10 @@ def run(path_list=None):  # pragma: no cover
     # init application
     app = QtWidgets_QApplication()
     if os_system == 'Windows':
-        from ScenarioGUI.global_settings import VERSION
         # set version and id
-        myAppID = f'GHEtool Community v{VERSION}'  # arbitrary string
+        myAppID = f'{globs.GUI_NAME} v{globs.VERSION}'  # arbitrary string
         ctypes_windll.shell32.SetCurrentProcessExplicitAppUserModelID(myAppID)
+
     # init window
     window = QtWidgets_QMainWindow()
     # init gui window
@@ -51,7 +52,7 @@ def run(path_list=None):  # pragma: no cover
         pyi_splash.update_text('Loading ...')
     # load file if it is in path list
     if path_list is not None:
-        main_window.filename = ([path for path in path_list if path.endswith('.GHEtool')][0], 0)
+        main_window.filename = ([path for path in path_list if path.endswith(f'.{globs.FILE_EXTENSION}')][0], 0)
         main_window.fun_load_known_filename()
 
     ghe_logger = logging.getLogger()
@@ -60,7 +61,7 @@ def run(path_list=None):  # pragma: no cover
     if is_frozen:
         pyi_splash.close()
 
-    ghe_logger.info('GHEtool loaded!')
+    ghe_logger.info(f'{globs.GUI_NAME} loaded!')
     window.showMaximized()
     # close app
     sys_exit(app.exec())

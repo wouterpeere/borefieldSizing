@@ -18,4 +18,4 @@ Whenever you use the hybrid sizing methodology (L2 in GHEtool) or make use of bo
 ## Active-passive cooling example
 Whenever you use the example of active-passive cooling, please use the citations below.
 
-> Coninx M., De Nies J. (2022). Cost-efficient Cooling of Buildings by means of Borefields with Active and Passive Cooling. Master thesis, Department of Mechanical Engineering, KU Leuven, Belgium.
+> Coninx, M., De Nies, J., Hermans, L., Peere, W., Boydens, W., Helsen, L. (2024). Cost-efficient cooling of buildings by means of geothermal borefields with active and passive cooling. _Applied Energy_, 355, Art. No. 122261, https://doi.org/10.1016/j.apenergy.2023.122261.

@@ -48,8 +48,8 @@ def custom_borefield_configuration():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # create custom borefield based on pygfunction
     custom_field = gt.boreholes.L_shaped_field(N_1=4, N_2=5, B_1=5., B_2=5., H=100., D=4, r_b=0.05)
@@ -74,7 +74,7 @@ def custom_borefield_configuration():
     # print gives the array of monthly temperatures for peak cooling without showing the plot
     borefield.calculate_temperatures(depth=90)
     print("Result array for cooling peaks")
-    print(borefield.results_peak_cooling)
+    print(borefield.results.peak_cooling)
 
 
 if __name__ == "__main__":  # pragma: no cover

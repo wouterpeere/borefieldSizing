@@ -75,11 +75,11 @@ def sizing_with_Rb():
     borefield.create_custom_dataset()
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)   # maximum temperature
-    borefield.set_min_ground_temperature(0)    # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)   # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)    # minimum temperature
 
     # size with constant Rb* value
-    borefield.sizing_setup(use_constant_Rb=True)
+    borefield.calculation_setup(use_constant_Rb=True)
 
     # calculate the Rb* value
     borefield.Rb = borefield.borehole.calculate_Rb(100, 1, 0.075, data.k_s)
@@ -94,7 +94,7 @@ def sizing_with_Rb():
     end_Rb_constant = time.time()
 
     # size with a dynamic Rb* value
-    borefield.sizing_setup(use_constant_Rb=False)
+    borefield.calculation_setup(use_constant_Rb=False)
 
     start_Rb_dynamic = time.time()
     for i in range(number_of_iterations):
@@ -124,7 +124,7 @@ def sizing_with_Rb():
     borefield.set_borefield(borefield_gt)
 
     # size with a constant Rb* value
-    borefield.sizing_setup(use_constant_Rb=True)
+    borefield.calculation_setup(use_constant_Rb=True)
 
     # calculate the Rb* value
     borefield.Rb = borefield.borehole.calculate_Rb(100, 1, 0.075, data.k_s)
@@ -139,7 +139,7 @@ def sizing_with_Rb():
     end_Rb_constant = time.time()
 
     # size with a dynamic Rb* value
-    borefield.sizing_setup(use_constant_Rb=False)
+    borefield.calculation_setup(use_constant_Rb=False)
 
     start_Rb_dynamic = time.time()
     for i in range(number_of_iterations):

@@ -182,7 +182,7 @@ class Translations:  # pragma: no cover
         "label_CancelText",
         "label_ResOptimizeLoad5",
         "label_ResOptimizeLoad6",
-        "pushButton_start_single",
+        "push_button_start_single",
         "not_calculated",
         "NoSolution",
         "aim_temp_profile",
@@ -192,7 +192,6 @@ class Translations:  # pragma: no cover
         "category_calculation",
         "option_method_size_depth",
         "option_method_size_length",
-        "option_method_temp_gradient",
         "option_method_rb_calc",
         "category_earth",
         "cat_no_results",
@@ -245,6 +244,27 @@ class Translations:  # pragma: no cover
         "option_pipe_coaxial_outer_inner",
         "option_pipe_coaxial_inner_outer",
         "option_pipe_coaxial_outer_outer",
+        "option_advanced_options",
+        "category_advanced_options",
+        "option_atol",
+        "option_rtol",
+        "option_max_nb_of_iter",
+        "SCOP_DHW",
+        "option_include_dhw",
+        "DHW",
+        "option_fluid_selector",
+        "option_glycol_selector",
+        "option_glycol_percentage",
+        "option_fluid_ref_temp",
+        "option_ground_database",
+        "hint_ground_database",
+        "hint_borehole_depth",
+        "hint_ground_flux_database",
+        "option_source_ground_temperature",
+        "option_flux_gradient",
+        "label_Continue",
+        "label_ContinueText",
+        "label_ContinueTitle",
         "languages",
     )
 
@@ -397,7 +417,7 @@ class Translations:  # pragma: no cover
         self.option_spacing_width: List[str] = [
             "Borehole spacing width [m]: ",
             "Bohrlochabstand Breitenrichtung [m]: ",
-            "Boorgatspatiëring Breedte [m]: ",
+            "Boorgatspatiëring breedte [m]: ",
             "Spaziatura del foro [m]: ",
             "Espacement des trous de forage [m]: ",
             "Espaciado entre pozos [m]: ",
@@ -485,22 +505,22 @@ class Translations:  # pragma: no cover
             "Ground volumetric heat capacity [kJ / m³ K]:",
         ]
         self.option_width: List[str] = [
-            "Width of rectangular field [#]: ",
-            "Breite des rechteckigen Feldes [#]: ",
-            "Breedte van het rechthoekige veld [#]: ",
-            "Larghezza del campo rettangolare [#]: ",
-            "Largeur du champ rectangulaire [#]: ",
-            "Ancho del campo rectangular [#]: ",
-            "Ancho do campo rectangular [#]: ",
+            "Number of boreholes in the width direction [-]:",
+            "Anzahl der Bohrungen in der Breite [-]:",
+            "Aantal boringen in de breedte [#]:",
+            "Number of boreholes in the width direction [-]:",
+            "Number of boreholes in the width direction [-]:",
+            "Number of boreholes in the width direction [-]:",
+            "Number of boreholes in the width direction [-]:",
         ]
         self.option_length: List[str] = [
-            "Length of rectangular field [#]: ",
-            "Länge des rechteckigen Feldes [#]: ",
-            "Lengte van het rechthoekige veld [#]: ",
-            "Lunghezza del campo rettangolare [#]: ",
-            "Longueur du champ rectangulaire [#]: ",
-            "Longitud del campo rectangular [#]: ",
-            "Lonxitude do campo rectangular [#]: ",
+            "Number of boreholes in the length direction [-]:",
+            "Anzahl der Bohrungen in der Länge [-]:",
+            "Aantal boringen in de lengte [#]:",
+            "Number of boreholes in the length direction [-]:",
+            "Number of boreholes in the length direction [-]:",
+            "Number of boreholes in the length direction [-]:",
+            "Number of boreholes in the length direction [-]:",
         ]
         self.category_temperatures: List[str] = [
             "Temperature constraints and simulation period",
@@ -512,22 +532,22 @@ class Translations:  # pragma: no cover
             "Restriccións de temperatura e período de simulación",
         ]
         self.option_min_temp: List[str] = [
-            "Minimal temperature [°C]: ",
-            "Minimaltemperatur [°C]: ",
-            "Minimale temperatuur [°C]: ",
-            "Temperatura minima [°C]: ",
-            "Température minimale [°C]: ",
-            "Temperatura mínima [°C]: ",
-            "Temperatura mínima[°C]: ",
+            "Minimum average fluid temperature [°C]: ",
+            "Minimale durchschnittliche Fluidtemperatur [°C]:",
+            "Minimale gemiddelde fluïdumtemperatuur [°C]: ",
+            "Minimum average fluid temperature [°C]: ",
+            "Minimum average fluid temperature [°C]: ",
+            "Minimum average fluid temperature [°C]: ",
+            "Minimum average fluid temperature [°C]: ",
         ]
         self.option_max_temp: List[str] = [
-            "Maximal temperature [°C]: ",
-            "Maximaltemperatur [°C]: ",
-            "Maximale temperatuur [°C]: ",
-            "Temperatura massima [°C]: ",
-            "Température maximale [°C]: ",
-            "Temperatura máxima [°C]: ",
-            "Temperatura máxima [°C]: ",
+            "Maximum average fluid temperature [°C]: ",
+            "Maximale durchschnittliche Fluidtemperatur [°C]:",
+            "Maximale gemiddelde fluïdumtemperatuur [°C]: ",
+            "Maximum average fluid temperature [°C]: ",
+            "Maximum average fluid temperature [°C]: ",
+            "Maximum average fluid temperature [°C]: ",
+            "Maximum average fluid temperature [°C]: ",
         ]
         self.option_temp_gradient: List[str] = [
             "Temperature gradient [K/100m]: ",
@@ -539,7 +559,7 @@ class Translations:  # pragma: no cover
             "Temperature gradient [K/100m]: ",
         ]
         self.option_simu_period: List[str] = [
-            "Simulation period [yrs]: ",
+            "Simulation period [years]: ",
             "Simulationszeit [Jahre]: ",
             "Simulatieperiode [jaar]: ",
             "Periodo di simulazione [anni]: ",
@@ -717,13 +737,13 @@ class Translations:  # pragma: no cover
             "Tipo de ficheiro: ",
         ]
         self.option_seperator_csv: List[str] = [
-            "Seperator in CSV-file:,Semicolon ';',Comma '++'",
+            "Separator in CSV-file:,Semicolon ';',Comma '++'",
             "Trenner in der CSV-Datei:,Semikolon ';',Komma '++'",
             "Scheidingsteken in CSV-file:,Puntkomma ';',Komma '++'",
-            "Seperator in CSV-file:,Semicolon ';',Comma '++'",
-            "Seperator in CSV-file:,Semicolon ';',Comma '++'",
-            "Seperator in CSV-file:,Semicolon ';',Comma '++'",
-            "Seperator in CSV-file:,Semicolon ';',Comma '++'",
+            "Separator in CSV-file:,Semicolon ';',Comma '++'",
+            "Separator in CSV-file:,Semicolon ';',Comma '++'",
+            "Separator in CSV-file:,Semicolon ';',Comma '++'",
+            "Separator in CSV-file:,Semicolon ';',Comma '++'",
         ]
         self.option_filename: List[str] = [
             "Filename: ",
@@ -808,13 +828,13 @@ class Translations:  # pragma: no cover
             "Liña de data: ",
         ]
         self.option_column: List[str] = [
-            "Thermal demand in one or two columns?:,1 column,2 columns",
-            "Thermischer Bedarf einer oder zwei Spalten?:,1 Spalte,2 Spalten",
-            "Thermische vraag in één of twee kolommen?:,1 kolom,2 kolommen",
-            "Thermal demand in one or two columns?:,1 colonna,2 colonne",
+            "Thermal demand in one or two columns?,1 column,2 columns",
+            "Thermischer Bedarf einer oder zwei Spalten?,1 Spalte,2 Spalten",
+            "Thermische vraag in één of twee kolommen?,1 kolom,2 kolommen",
+            "Thermal demand in one or two columns?,1 colonna,2 colonne",
             "Thermal demand in one or two columns?;,1 colonne,2 colonnes",
-            "Thermal demand in one or two columns?:,1 columna,2 columnas",
-            "Thermal demand in one or two columns?:,1 columna,2 columnas",
+            "Thermal demand in one or two columns?,1 columna,2 columnas",
+            "Thermal demand in one or two columns?,1 columna,2 columnas",
         ]
         self.pushButton_calculate: List[str] = ["Calculate", "Berechne", "Bereken", "Calcola", "Calculer", "Calcular", "Calcular"]
         self.ErrorMassage: List[str] = ["Error!", "Fehler!", "Error!", "Errore!", "Erreur!", "Error!", "Erro!"]
@@ -1226,13 +1246,13 @@ class Translations:  # pragma: no cover
             "Scenario saving settings",
         ]
         self.option_toggle_buttons: List[str] = [
-            "Use toggle buttons?:, No , Yes ",
-            "Umschalterbutton?:, Nein , Ja ",
-            "Toggle-gedrag?:, Nee , Ja",
-            "Toggle buttons?:, No , Yes ",
-            "Toggle buttons?:, No , Yes ",
-            "Toggle buttons?:, No , Yes ",
-            "Toggle buttons?:, No , Yes",
+            "Use toggle buttons?, No , Yes ",
+            "Umschalterbutton?, Nein , Ja ",
+            "Toggle-gedrag?, Nee , Ja",
+            "Toggle buttons?, No , Yes ",
+            "Toggle buttons?, No , Yes ",
+            "Toggle buttons?, No , Yes ",
+            "Toggle buttons?, No , Yes",
         ]
         self.option_auto_saving: List[str] = [
             "Use automatic saving?, No , Yes ",
@@ -1309,13 +1329,13 @@ class Translations:  # pragma: no cover
         ]
         self.category_pipe_data: List[str] = ["Pipe data", "Rohrdaten", "Boorgatdata", "Pipe data", "Pipe data", "Pipe data", "Pipe data"]
         self.option_pipe_number: List[str] = [
-            "Number of pipes [#]:",
-            "Anzahl an Rohren [#]:",
-            "Aantal U-buizen [#]:",
-            "Number of pipes [#]:",
-            "Number of pipes [#]:",
-            "Number of pipes [#]:",
-            "Number of pipes [#]:",
+            "Number of pipes [-]:",
+            "Anzahl an Rohren [-]:",
+            "Aantal U-buizen [-]:",
+            "Number of pipes [-]:",
+            "Number of pipes [-]:",
+            "Number of pipes [-]:",
+            "Number of pipes [-]:",
         ]
         self.option_pipe_grout_conductivity: List[str] = [
             "Grout thermal conductivity [W/mK]: ",
@@ -1390,13 +1410,13 @@ class Translations:  # pragma: no cover
             "Pipe roughness [m]:",
         ]
         self.option_pipe_depth: List[str] = [
-            "Burial depth [m]:",
+            "Buried depth [m]:",
             "Vergrabungstiefe [m]:",
             "Deklaag [m]:",
-            "Burial depth [m]:",
-            "Burial depth [m]:",
-            "Burial depth [m]:",
-            "Burial depth [m]:",
+            "Buried depth [m]:",
+            "Buried depth [m]:",
+            "Buried depth [m]:",
+            "Buried depth [m]:",
         ]
         self.label_ResOptimizeLoad1: List[str] = [
             "The peak heating / cooling load is: ",
@@ -1453,7 +1473,7 @@ class Translations:  # pragma: no cover
             "The remaining heating / cooling load is: ",
             "The remaining heating / cooling load is: ",
         ]
-        self.pushButton_start_single: List[str] = [
+        self.push_button_start_single: List[str] = [
             "Calculate current scenario",
             "Berechne ausgewähltes Szenario",
             "Bereken huidig scenario",
@@ -1542,15 +1562,6 @@ class Translations:  # pragma: no cover
             "Method for size width and length:,  Simplified  ,  Monthly  ",
             "Method for size width and length:,  Simplified  ,  Monthly  ",
             "Method for size width and length:,  Simplified  ,  Monthly",
-        ]
-        self.option_method_temp_gradient: List[str] = [
-            "Consider temperature variation in the ground?:, None , Heat flux , Temperature gradient ",
-            "Welche Art Temperaturgradient soll berücksichtigt werden?:, Keiner , Wärmestrom , Temperaturgradient ",
-            "Moet een variabele grondtemperatuur in rekening worden gebracht?:, Nee , Flux , Gradiënt, ",
-            "Consider temperature variation in the ground?:, None , Heat flux , Temperature gradient ",
-            "Consider temperature variation in the ground?:, None , Heat flux , Temperature gradient ",
-            "Consider temperature variation in the ground?:, None , Heat flux , Temperature gradient ",
-            "Consider temperature variation in the ground?:, None , Heat flux , Temperature gradient",
         ]
         self.option_method_rb_calc: List[str] = [
             "Borehole resistance calculation method:, Constant , Dynamic ",
@@ -1692,20 +1703,20 @@ class Translations:  # pragma: no cover
         self.max_temp: List[str] = [
             "The maximum average fluid temperature is , °C",
             "Die maximale Fluidtemperatur ist , °C",
-            "De maximaal gemiddelde fluïdumtemperatuur is , °C",
+            "De maximum gemiddelde fluïdumtemperatuur is , °C",
             "The maximum average fluid temperature is , °C",
             "The maximum average fluid temperature is , °C",
             "The maximum average fluid temperature is , °C",
             "The maximum average fluid temperature is , °C",
         ]
         self.min_temp: List[str] = [
-            "The minimal average fluid temperature is , °C",
+            "The minimum average fluid temperature is , °C",
             "Die minimale Fluidtemperatur ist , °C",
-            "De minimaal gemiddelde fluïdumtemperatuur is , °C",
-            "The minimal average fluid temperature is , °C",
-            "The minimal average fluid temperature is , °C",
-            "The minimal average fluid temperature is , °C",
-            "The minimal average fluid temperature is , °C",
+            "De minimum gemiddelde fluïdumtemperatuur is , °C",
+            "The minimum average fluid temperature is , °C",
+            "The minimum average fluid temperature is , °C",
+            "The minimum average fluid temperature is , °C",
+            "The minimum average fluid temperature is , °C",
         ]
         self.figure_temperature_profile: List[str] = [
             "Temperature evolution, Temperature [°C], Time [years]",
@@ -1737,7 +1748,7 @@ class Translations:  # pragma: no cover
         self.figure_load_duration: List[str] = [
             "Load-duration curve, Power [kW], Time [hours]",
             "Jahresdauerlinie, Leistung [kW], Zeit [Stunden]",
-            "Belastings-duurcurve, Vermogen [kW], Tijd [jaar]",
+            "Belastings-duurcurve (geothermisch), Vermogen [kW], Tijd [jaar]",
             "Load-duration curve, Power [kW], Time [hours]",
             "Load-duration curve, Power [kW], Time [hours]",
             "Load-duration curve, Power [kW], Time [hours]",
@@ -1753,22 +1764,22 @@ class Translations:  # pragma: no cover
             "Mostrar lenda?, No , Yes",
         ]
         self.option_len_peak_heating: List[str] = [
-            "Peak length heating [hours]: ",
+            "Peak duration heating [hours]: ",
             "Spitzenlastlänge Heizen [Stunden]: ",
             "Piekduur verwarming [uren]: ",
-            "Peak length heating [hours]: ",
-            "Peak length heating [hours]: ",
-            "Peak length heating [hours]: ",
-            "Peak length heating [hours]:",
+            "Peak duration heating [hours]: ",
+            "Peak duration heating [hours]: ",
+            "Peak duration heating [hours]: ",
+            "Peak duration heating [hours]:",
         ]
         self.option_len_peak_cooling: List[str] = [
-            "Peak length cooling [hours]: ",
+            "Peak duration cooling [hours]: ",
             "Spitzenlastlänge Kühlen [Stunden]: ",
             "Piekduur koeling [uren]: ",
-            "Peak length cooling [hours]: ",
-            "Peak length cooling [hours]: ",
-            "Peak length cooling [hours]: ",
-            "Peak length cooling [hours]:",
+            "Peak duration cooling [hours]: ",
+            "Peak duration cooling [hours]: ",
+            "Peak duration cooling [hours]: ",
+            "Peak duration cooling [hours]:",
         ]
         self.option_temperature_profile_hourly: List[str] = [
             "Should hourly data be used for the temperature profile?, No , Yes ",
@@ -1800,7 +1811,7 @@ class Translations:  # pragma: no cover
         self.option_n_threads: List[str] = [
             "Number of parallel threads [-]: ",
             "Anzahl an parallelen Prozessen [-]:",
-            "Number of parallel threads [-]: ",
+            "Aantal parallelle threads [-]:",
             "Number of parallel threads [-]: ",
             "Number of parallel threads [-]: ",
             "Number of parallel threads [-]: ",
@@ -1809,7 +1820,7 @@ class Translations:  # pragma: no cover
         self.option_number_circle_boreholes: List[str] = [
             "Number of boreholes [-]:",
             "Anzahl der Bohrlöcher [-]:",
-            "Number of boreholes [-]:",
+            "Aantal boringen [-]:",
             "Number of boreholes [-]:",
             "Number of boreholes [-]:",
             "Number of boreholes [-]:",
@@ -1818,29 +1829,29 @@ class Translations:  # pragma: no cover
         self.option_borefield_radius: List[str] = [
             "Distance of the boreholes from the center of the field [m]:",
             "Abstand der Bohrlöcher vom Zentrum der Feldes [m]:",
-            "Distance of the boreholes from the center of the field [m]:",
+            "Afstand van de boringen tot het centrum van de cirkel [m]:",
             "Distance of the boreholes from the center of the field [m]:",
             "Distance of the boreholes from the center of the field [m]:",
             "Distance of the boreholes from the center of the field [m]:",
             "Distance of the boreholes from the center of the field [m]:",
         ]
         self.custom_borefield: List[str] = [
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
+            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried depth [m]:,Borehole radius [m]",
             "Benutzerdefiniertes Bohrelochfeld,Bohrloch,x [m]:,y [m]:,Tiefe [m]:,Vergrabungstiefe [m]:,Bohrlochradius [m]",
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
-            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried Depth [m]:,Borehole radius [m]",
+            "Manueel boorveld,Boorgat,x [m]:,y [m]:,Diepte [m]:,Deklaag [m]:,Boorgatstraal [m]",
+            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried depth [m]:,Borehole radius [m]",
+            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried depth [m]:,Borehole radius [m]",
+            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried depth [m]:,Borehole radius [m]",
+            "Custom borefield,Borehole,x [m]:,y [m]:,Depth [m]:,Buried depth [m]:,Borehole radius [m]",
         ]
         self.option_seperator_borefield: List[str] = [
-            "Seperator in file:,Semicolon ';',Comma '++',Tab '   '",
+            "Separator in file:,Semicolon ';',Comma '++',Tab '   '",
             "Trenner in der Datei:,Semikolon ';',Komma '++',Tab '   '",
             "Scheidingsteken in file:,Puntkomma ';',Komma '++',Tab '   '",
-            "Seperator in file:,Semicolon ';',Comma '++',Tab '   '",
-            "Seperator in file:,Semicolon ';',Comma '++',Tab '   '",
-            "Seperator in file:,Semicolon ';',Comma '++',Tab '   '",
-            "Seperator in file:,Semicolon ';',Comma '++',Tab '   '",
+            "Separator in file:,Semicolon ';',Comma '++',Tab '   '",
+            "Separator in file:,Semicolon ';',Comma '++',Tab '   '",
+            "Separator in file:,Semicolon ';',Comma '++',Tab '   '",
+            "Separator in file:,Semicolon ';',Comma '++',Tab '   '",
         ]
         self.borefield_file: List[str] = [
             "Filename: ",
@@ -1980,3 +1991,168 @@ class Translations:  # pragma: no cover
             "Outer pipe outer radius [m]:",
             "Outer pipe outer radius [m]:",
         ]
+        self.option_advanced_options: List[str] = [
+            "Enable advanced options?, No , Yes ",
+            "Aktiviere erweiterte Optionen?, Nein , Ja ",
+            "Activeer geavanceerde opties?, Nee, Ja ",
+            "Enable advanced options?, No , Yes ",
+            "Enable advanced options?, No , Yes ",
+            "Enable advanced options?, No , Yes ",
+            "Enable advanced options?, No , Yes ",
+        ]
+        self.category_advanced_options: List[str] = [
+            "Advanced options",
+            "Erweiterte Optionen",
+            "Geavanceerde opties",
+            "Advanced options",
+            "Advanced options",
+            "Advanced options",
+            "Advanced options",
+        ]
+        self.option_atol: List[str] = [
+            "Absolute tolerance for iteration convergence [m]:",
+            "Absolute Toleranz für Iterationskonvergenz [m]:",
+            "Absolute tolerantie voor convergentie van de iteratie [m]:",
+            "Absolute tolerance for iteration convergence [m]:",
+            "Absolute tolerance for iteration convergence [m]:",
+            "Absolute tolerance for iteration convergence [m]:",
+            "Absolute tolerance for iteration convergence [m]:",
+        ]
+        self.option_rtol: List[str] = [
+            "Relative tolerance for iteration convergence [%]:",
+            "Relative Toleranz für Iterationskonvergenz [%]:",
+            "Relative tolerantie voor de convergentie van de iteratie [%]:",
+            "Relative tolerance for iteration convergence [%]:",
+            "Relative tolerance for iteration convergence [%]:",
+            "Relative tolerance for iteration convergence [%]:",
+            "Relative tolerance for iteration convergence [%]:",
+        ]
+        self.option_max_nb_of_iter: List[str] = [
+            "Maximum number of iterations to check for convergence [-]:",
+            "Maximale Anzahl der Iterationen, um auf Konvergenz zu prüfen [-]:",
+            "Maximum aantal iteraties [-]:",
+            "Maximum number of iterations to check for convergence [-]:",
+            "Maximum number of iterations to check for convergence [-]:",
+            "Maximum number of iterations to check for convergence [-]:",
+            "Maximum number of iterations to check for convergence [-]:",
+        ]
+        self.SCOP_DHW: List[str] = ["SCOP DHW [-]:", "SCOP Warmwasser [-]", "SCOP SWW [-]", "SCOP DHW [-]", "SCOP DHW [-]", "SCOP DHW [-]", "SCOP DHW [-]"]
+        self.option_include_dhw: List[str] = [
+            "Include Domestic Hot Water?, No , Yes ",
+            "Warmwasser hinzufügen?, Nein , Ja ",
+            "Sanitair warm water toevoegen?, Nee , Ja ",
+            "Include Domestic Hot Water?, No , Yes ",
+            "Include Domestic Hot Water?, No , Yes ",
+            "Include Domestic Hot Water?, No , Yes ",
+            "Include Domestic Hot Water?, No , Yes ",
+        ]
+        self.DHW: List[str] = [
+            "Yearly DHW consumption [kWh/year]:",
+            "Jährlicher Verbrauch von Warmwasser [kWh/Jahr]:",
+            "Jaarlijkse SWW vraag [kWh/jaar]",
+            "Yearly DHW consumption [kWh/year]:",
+            "Yearly DHW consumption [kWh/year]:",
+            "Yearly DHW consumption [kWh/year]:",
+            "Yearly DHW consumption [kWh/year]:",
+        ]
+        self.option_fluid_selector: List[str] = [
+            "Fluid properties:, Custom , Water-glycol  ",
+            "Fluid-Eigenschaften: Benutzerdefiniert, Wasser-Glykol",
+            "Vloeistofeigenschappen:, Manueel , Water-glycol  ",
+            "Fluid properties:, Custom , Water-glycol  ",
+            "Fluid properties:, Custom , Water-glycol  ",
+            "Fluid properties:, Custom , Water-glycol  ",
+            "Fluid properties:, Custom , Water-glycol  ",
+        ]
+        self.option_glycol_selector: List[str] = [
+            "Type of glycol:, Ethylene glycol , Propylene glycol ",
+            "Glykoltyp: Ethylenglykol, Propylenglykol",
+            "Type glycol:, Ethyleenglycol , Propyleenglycol",
+            "Type of glycol:, Ethylene glycol , Propylene glycol ",
+            "Type of glycol:, Ethylene glycol , Propylene glycol ",
+            "Type of glycol:, Ethylene glycol , Propylene glycol ",
+            "Type of glycol:, Ethylene glycol , Propylene glycol ",
+        ]
+        self.option_glycol_percentage: List[str] = [
+            "Percentage of glycol [%]:",
+            "Glykolanteil [%]:",
+            "Percentage glycol [%]:",
+            "Percentage of glycol [%]:",
+            "Percentage of glycol [%]:",
+            "Percentage of glycol [%]:",
+            "Percentage of glycol [%]:",
+        ]
+        self.option_fluid_ref_temp: List[str] = [
+            "Reference fluid temperature [°C]:",
+            "Referenz-Fluidtemperatur [°C]:",
+            "Referentietemperatuur fluidum [°C]:",
+            "Reference fluid temperature [°C]:",
+            "Reference fluid temperature [°C]:",
+            "Reference fluid temperature [°C]:",
+            "Reference fluid temperature [°C]:",
+        ]
+        self.option_ground_database: List[str] = [
+            "Select from the database: ",
+            "Aus der Datenbank auswählen:",
+            "Selecteer van de databank:",
+            "Select from the database: ",
+            "Select from the database: ",
+            "Select from the database: ",
+            "Select from the database: ",
+        ]
+        self.hint_ground_database: List[str] = [
+            "The ground temperature at the selected location is: , °C",
+            "Die Bodentemperatur an der ausgewählten Stelle beträgt: , °C",
+            "De grondtemperatuur op de geselecteerde locatie is: , °C",
+            "The ground temperature at the selected location is: , °C",
+            "The ground temperature at the selected location is: , °C",
+            "The ground temperature at the selected location is: , °C",
+            "The ground temperature at the selected location is: , °C",
+        ]
+        self.hint_borehole_depth: List[str] = [
+            "The borehole depth is relative w.r.t. the buried depth, not the surface level.",
+            "Die Bohrlochtiefe ist relativ zur eingegrabenen Tiefe, nicht zur Geländeoberfläche.",
+            "De boorgatdiepte is relatief ten opzichte van de deklaag, niet het maaiveld.",
+            "The borehole depth is relative w.r.t. the buried depth, not the surface level.",
+            "The borehole depth is relative w.r.t. the buried depth, not the surface level.",
+            "The borehole depth is relative w.r.t. the buried depth, not the surface level.",
+            "The borehole depth is relative w.r.t. the buried depth, not the surface level.",
+        ]
+        self.hint_ground_flux_database: List[str] = [
+            "The geothermal heat flux at the selected location is: , W/m²",
+            "Die geothermische Wärmeflussdichte an der ausgewählten Stelle beträgt: , W/m²",
+            "De geothermische warmteflux op de gekozen locatie is: , W/m²",
+            "The geothermal heat flux at the selected location is: , W/m²",
+            "The geothermal heat flux at the selected location is: , W/m²",
+            "The geothermal heat flux at the selected location is: , W/m²",
+            "The geothermal heat flux at the selected location is: , W/m²",
+        ]
+        self.option_source_ground_temperature: List[str] = [
+            "Source of the ground temperature data:, Measured , Database , Custom",
+            "Quelle der Bodentemperaturdaten:, Gemessen , Datenbank , Benutzerdefiniert",
+            "Bron voor de grondtemperatuur:, Gemeten , Databank , Manueel",
+            "Source of the ground temperature data:, Measured , Database , Custom",
+            "Source of the ground temperature data:, Measured , Database , Custom",
+            "Source of the ground temperature data:, Measured , Database , Custom",
+            "Source of the ground temperature data:, Measured , Database , Custom",
+        ]
+        self.option_flux_gradient: List[str] = [
+            "How to take into account temperature variation?, Flux , Gradient",
+            "Wie berücksichtigt man Temperaturschwankungen?, Fluss , Gradient ",
+            "Hoe temperatuurvariatie meenemen?, Flux , Gradiënt ",
+            "How to take into account temperature variation?, Flux , Gradient",
+            "How to take into account temperature variation?, Flux , Gradient",
+            "How to take into account temperature variation?, Flux , Gradient",
+            "How to take into account temperature variation?, Flux , Gradient",
+        ]
+        self.label_Continue: List[str] = ["Continue", "Fortsetzen", "Ga verder", "Continue", "Continue", "Continue", "Continue"]
+        self.label_ContinueText: List[str] = [
+            "Would you like to save the project before you continue?",
+            "Möchten Sie das Projekt speichern bevor sie fortfahren?",
+            "Wilt u het project opslaan voor u verdergaat?",
+            "Would you like to save the project before you continue?",
+            "Would you like to save the project before you continue?",
+            "Would you like to save the project before you continue?",
+            "Would you like to save the project before you continue?",
+        ]
+        self.label_ContinueTitle: List[str] = ["Warning", "Warnung", "Waarschuwing", "Warning", "Warning", "Warning", "Warning"]

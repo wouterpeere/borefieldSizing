@@ -2,7 +2,7 @@ import pytest
 
 import numpy as np
 
-from GHEtool.VariableClasses import MonthlyGeothermalLoadAbsolute
+from GHEtool.VariableClasses import MonthlyGeothermalLoadAbsolute, HourlyGeothermalLoad
 from GHEtool.Validation.cases import load_case
 
 
@@ -188,3 +188,82 @@ def test_get_month_index():
 def test_dummy_peak_duration():
     test = MonthlyGeothermalLoadAbsolute()
     assert None is test.peak_duration
+
+
+def test_dhw():
+    load = MonthlyGeothermalLoadAbsolute()
+    assert load.dhw == 0.
+    load.add_dhw(1000)
+    assert load.dhw == 1000.
+    assert np.isclose(load.dhw_power, 1000./8760)
+    load.dhw = 200
+    assert load.dhw == 200.
+    try:
+        load.add_dhw('test')
+        assert False  # pragma: no cover
+    except ValueError:
+        assert True
+    try:
+        load.add_dhw(-10)
+        assert False  # pragma: no cover
+    except ValueError:
+        assert True
+
+    load.dhw = 8760*10
+    assert np.array_equal(np.full(12, 10), load.peak_heating)
+    assert load.max_peak_heating == 10
+    assert np.array_equal(np.full(12, 8760*10/12), load.baseload_heating)
+    assert load.imbalance == -8760*10
+    load.all_months_equal = False
+    assert np.array_equal(np.array([7440., 6720., 7440., 7200., 7440., 7200., 7440., 7440., 7200., 7440., 7200., 7440.]), load.baseload_heating)
+
+
+def test_yearly_heating_cooling():
+    load = MonthlyGeothermalLoadAbsolute(*load_case(2))
+    assert load.yearly_heating_load == 160000
+    assert load.yearly_cooling_load == 240000
+
+
+def test_eq():
+    load_1 = MonthlyGeothermalLoadAbsolute(*load_case(2))
+    load_2 = MonthlyGeothermalLoadAbsolute(*load_case(2))
+
+
+    assert load_1 == load_2
+    load_2.simulation_period = 55
+    assert load_1 != load_2
+
+    load_1.simulation_period = 55
+    assert load_1 == load_2
+    load_1.baseload_cooling = [i + 1 for i in load_1.baseload_cooling]
+
+    assert load_1 != load_2
+    load_2.baseload_cooling = [i + 1 for i in load_2.baseload_cooling]
+    assert load_1 == load_2
+
+    load_1.simulation_period = 55
+    assert load_1 == load_2
+    load_1.baseload_heating = [i + 1 for i in load_1.baseload_heating]
+
+    assert load_1 != load_2
+    load_2.baseload_heating = [i + 1 for i in load_2.baseload_heating]
+    assert load_1 == load_2
+
+    load_1.simulation_period = 55
+    assert load_1 == load_2
+    load_1.peak_heating = [i + 1 for i in load_1.peak_heating]
+
+    assert load_1 != load_2
+    load_2.peak_heating = [i + 1 for i in load_2.peak_heating]
+    assert load_1 == load_2
+
+    load_1.simulation_period = 55
+    assert load_1 == load_2
+    load_1.peak_cooling = [i + 1 for i in load_1.peak_cooling]
+
+    assert load_1 != load_2
+    load_2.peak_cooling = [i + 1 for i in load_2.peak_cooling]
+    assert load_1 == load_2
+
+    load_2 = HourlyGeothermalLoad()
+    assert load_1 != load_2

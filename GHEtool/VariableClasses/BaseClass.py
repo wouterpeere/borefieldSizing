@@ -171,3 +171,21 @@ class BaseClass:
             variables: List[str] = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("__")]
 
         return all(getattr(self, var) is not None for var in variables)
+
+
+class UnsolvableDueToTemperatureGradient(Exception):
+    """
+    This Exception occurs when there is an unsizeble borefield due to incompatibility between 1) peak cooling,
+    which requires a deeper borefield and 2) a temperature gradient, which causes a higher ground temperature when
+    the field is drilled deeper. This leads to unsizeble solutions.
+    """
+    def __init__(self):
+        super().__init__('No solution can be found due to the temperature gradient. Please increase the field size.')
+
+
+class MaximumNumberOfIterations(RuntimeError):
+    """
+    This Error occurs when the maximum number of interation is reacted.
+    """
+    def __init__(self, iter: int):
+        super().__init__(f'The maximum number of iterations {iter} is crossed. There is no size convergence.')

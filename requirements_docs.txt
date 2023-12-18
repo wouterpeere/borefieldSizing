@@ -3,3 +3,4 @@ sphinx>=5.1.1
 myst-parser>=0.18.0
 numpydoc >= 1.2.0
 sphinx_design >= 0.3.0
+sphinx-rtd-theme >= 1.3.0

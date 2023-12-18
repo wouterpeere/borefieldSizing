@@ -127,8 +127,8 @@ def size_L2() -> None:
     borefield.set_borefield(borefield_gt)
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # size according to L2 method
     for i in range(number_of_iterations):
@@ -195,8 +195,8 @@ def size_L3() -> None:
     borefield.set_borefield(borefield_gt)
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # size according to L3 method
     for i in range(number_of_iterations):

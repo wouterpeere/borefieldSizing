@@ -89,17 +89,17 @@ def test_nearest_value_index():
 
 def test_nearest_depth_index():
     gfunc = GFunction()
-    gfunc.depth_array = depth_array
-    assert (None, 0) == gfunc._get_nearest_depth_index(0.1)
+    gfunc.depth_array = np.array([1, 5, 6])
+    assert (None, 0) == gfunc._get_nearest_depth_index(0.9)
     assert (None, None) == gfunc._get_nearest_depth_index(100)
-    assert (0, 1) == gfunc._get_nearest_depth_index(3)
+    assert (None, None) == gfunc._get_nearest_depth_index(3)
     assert (1, 1) == gfunc._get_nearest_depth_index(5)
-    assert (2, None) == gfunc._get_nearest_depth_index(20)
-    assert (0, 1) == gfunc._get_nearest_depth_index(4)
+    assert (2, None) == gfunc._get_nearest_depth_index(7)
+    gfunc.depth_array = np.array([4, 5, 6])
+    assert (0, 1) == gfunc._get_nearest_depth_index(4.8)
 
     with raises(ValueError):
         gfunc._get_nearest_depth_index(-100)
-
 
 
 def test_nearest_depth_index_threshold():

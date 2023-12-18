@@ -6,7 +6,7 @@
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.04406/status.svg)](https://doi.org/10.21105/joss.04406)
 [![Downloads](https://static.pepy.tech/personalized-badge/ghetool?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads)](https://pepy.tech/project/ghetool)
 [![Downloads](https://static.pepy.tech/personalized-badge/ghetool?period=week&units=international_system&left_color=black&right_color=orange&left_text=Downloads%20last%20week)](https://pepy.tech/project/ghetool)
-[![Read the Docs](https://readthedocs.org/projects/ghetool/badge/?version=stable)](https://ghetool.readthedocs.io/en/stable/)
+[![Read the Docs](https://readthedocs.org/projects/ghetool/badge/?version=latest)](https://ghetool.readthedocs.io/en/latest/)
 ## What is *GHEtool*?
 <img src="https://raw.githubusercontent.com/wouterpeere/GHEtool/main/docs/sources/gui/_figure/Icon.png" width="110" align="left">
 
@@ -16,11 +16,11 @@ intelligent interpolation, this automated sizing can be done in the order of mil
 
 #### Read The Docs
 GHEtool has an elaborate documentation were all the functionalities of the tool are explained, with examples, literature and validation.
-This can be found on [GHEtool.readthedocs.io](https://ghetool.readthedocs.io).
+This can be found on [https://docs.ghetool.eu](https://docs.ghetool.eu).
 
 #### Graphical user interface
 GHEtool comes with a *graphical user interface (GUI)*. This GUI is built using [ScenarioGUI](https://github.com/tblanke/ScenarioGUI).
-
+One can download the open-source GUI [here](https://ghetool.eu/wp-content/uploads/setups/GHEtool%20Community_setup_v2_2_0.exe).
 <p align="center">
 <img src="https://raw.githubusercontent.com/wouterpeere/GHEtool/main/docs/sources/gui/_figure/GHEtool.PNG" width="600">
 </p>
@@ -116,6 +116,8 @@ In a future version of GHEtool, also secundary building loads will be included. 
 * _HourlyGeothermalLoad_: You can set (or load) the hourly heating and cooling load of a standard year which will be used for all years within the simulation period.
 * _HourlyGeothermalLoadMultiYear_: You can set (or load) the hourly heating and cooling load for multiple years (i.e. for the whole simulation period). This way, you can use secundary loads already with GHEtool as shown in [this example](https://ghetool.readthedocs.io/en/stable/sources/code/Examples/active_passive_cooling.html).
 
+All load classes also have the option to add a yearly domestic hot water usage.
+
 Please note that it is possible to add your own load types by inheriting the attributes from the abstract _LoadData class.
 
 ### Options for sizing methods
@@ -129,6 +131,9 @@ atol and rtol is chosen when sizing. The options are:
 * _use_precalculated_dataset_: This option makes sure the custom g-function dataset (if available) is not used.
 * _interpolate_gfunctions_: Calculating the gvalues gives a large overhead cost, although they are not that sensitive to a change in borehole depth. If this parameter is True 
 it is allowed that gfunctions are interpolated. (To change the threshold for this interpolation, go to the Gfunction class.)
+* _deep_sizing_: An alternative sizing method for cases with high cooling (peaks) and a variable ground temperature.
+This method is potentially slower, but proves to be more robust.
+* _force_deep_sizing_: When the alternative method from above should always be used.
 
 ### Simple example
 
@@ -143,10 +148,9 @@ from GHEtool import Borefield, GroundDataConstantTemperature, MonthlyGeothermalL
 After importing the necessary classes, the relevant ground data parameters are set.
 
 ```Python
-data =
-GroundDataConstantTemperature(3,   # ground thermal conductivity (W/mK)
-                              10,  # initial/undisturbed ground temperature (deg C)
-                              2.4*10**6) # volumetric heat capacity of the ground (J/m3K) 
+data = GroundDataConstantTemperature(3,   # ground thermal conductivity (W/mK)
+                                     10,  # initial/undisturbed ground temperature (deg C)
+                                     2.4*10**6) # volumetric heat capacity of the ground (J/m3K) 
 ```
 
 Furthermore, for our loads, we need to set the peak loads as well as the monthly base loads for heating and cooling.
@@ -178,8 +182,8 @@ borefield.set_ground_parameters(data)
 borefield.Rb = 0.12
 
 # set temperature boundaries
-borefield.set_max_ground_temperature(16)  # maximum temperature
-borefield.set_min_ground_temperature(0)  # minimum temperature
+borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 ```
 
 Next we create a rectangular borefield.
@@ -216,7 +220,7 @@ A full list of functionalities is given below.
 
 ## Functionalities
 GHEtool offers functionalities of value to all different disciplines working with borefields. The features are available both in the code environment and in the GUI.
-For more information about the functionalities of GHEtool, please visit the [ReadTheDocs](https://ghetool.readthedocs.org).
+For more information about the functionalities of GHEtool, please visit the documentation on [https://docs.ghetool.eu](https://docs.ghetool.eu).
 
 ## License
 
@@ -240,11 +244,15 @@ Please cite GHEtool using the JOSS paper.
 
 Peere, W., Blanke, T.(2022). GHEtool: An open-source tool for borefield sizing in Python. _Journal of Open Source Software, 7_(76), 4406, https://doi.org/10.21105/joss.04406
 
-For more information on how to cite GHEtool, please visit the ReadTheDocs at [GHEtool.readthedocs.io](https://ghetool.readthedocs.io/en/stable/).
+For more information on how to cite GHEtool, please visit the ReadTheDocs at [https://docs.ghetool.eu](https://docs.ghetool.eu/en/stable/).
 
 ## References
 
 ### Development of GHEtool
+Coninx, M., De Nies, J., Hermans, L., Peere, W., Boydens, W., Helsen, L. (2024). Cost-efficient cooling of buildings by means of geothermal borefields with active and passive cooling. _Applied Energy_, 355, Art. No. 122261, https://doi.org/10.1016/j.apenergy.2023.122261.
+
+Peere, W., Hermans, L., Boydens, W., and Helsen, L. (2023). Evaluation of the oversizing and computational speed of different open-source borefield sizing methods. In _Proceedings of International Building Simulation Conference 2023_. Shanghai (Belgium), 4-6 September 2023.
+
 Coninx, M., De Nies, J. (2022). Cost-efficient Cooling of Buildings by means of Borefields with Active and Passive Cooling. Master thesis, Department of Mechanical Engineering, KU Leuven, Belgium.
 
 Peere, W., Blanke, T. (2022). GHEtool: An open-source tool for borefield sizing in Python. _Journal of Open Source Software, 7_(76), 4406, https://doi.org/10.21105/joss.04406

@@ -41,8 +41,8 @@ def test_64_boreholes():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # precalculate
     borefield.create_custom_dataset()
@@ -97,8 +97,8 @@ def test_10_boreholes():
     borefield.Rb = 0.2
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)  # maximum temperature
-    borefield.set_min_ground_temperature(0)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)  # minimum temperature
 
     # precalculate
     borefield.create_custom_dataset()

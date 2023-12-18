@@ -11,6 +11,7 @@ def test_L2(model: Borefield, result):
     if not isinstance(result[0], (int, float, str)):
         try:
             model.size_L2(100)
+            assert False   # pragma: no cover
         except result[0]:
             assert True
     else:
@@ -25,6 +26,7 @@ def test_L3(model: Borefield, result):
     if not isinstance(result[0], (int, float, str)):
         try:
             model.size_L3(100)
+            assert False   # pragma: no cover
         except result[0]:
             assert True
     else:
@@ -39,6 +41,7 @@ def test_L4(model: Borefield, result):
     if not isinstance(result[0], (int, float, str)):
         try:
             model.size_L4(100)
+            assert False   # pragma: no cover
         except result[0]:
             assert True
     else:
@@ -56,9 +59,6 @@ def test_optimise(input, result):
     model.optimise_load_profile(load, depth, SCOP, SEER)
     percentage_heating, percentage_cooling, peak_heating_geo, peak_cooling_geo, peak_heating_ext, peak_cooling_ext = \
         result
-    # print(model._percentage_heating, model._percentage_cooling)
-    # print(np.max(model.peak_heating), np.max(model.peak_cooling))
-    # print(np.max(model.peak_heating_external), np.max(model.peak_cooling_external))
     assert np.isclose(model._percentage_heating, percentage_heating)
     assert np.isclose(model._percentage_cooling, percentage_cooling)
     assert np.isclose(model.load.max_peak_heating, peak_heating_geo)

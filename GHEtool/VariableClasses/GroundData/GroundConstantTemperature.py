@@ -3,7 +3,7 @@ from GHEtool.VariableClasses.GroundData._GroundData import _GroundData
 
 class GroundConstantTemperature(_GroundData):
 
-    __slots__ = _GroundData.__slots__ + ('Tg',)
+    __slots__ = _GroundData.__slots__
 
     def __init__(self, k_s: float = None,
                  T_g: float = None,
@@ -38,3 +38,19 @@ class GroundConstantTemperature(_GroundData):
             Ground temperature [deg C]
         """
         return self.Tg
+
+    def calculate_delta_H(self, temperature_diff: float) -> float:
+        """
+        This function calculates the difference in depth for a given difference in temperature.
+
+        Parameters
+        ----------
+        temperature_diff : float
+            Difference in temperature [deg C]
+
+        Returns
+        -------
+        float
+            Difference in depth [m]
+        """
+        return 0

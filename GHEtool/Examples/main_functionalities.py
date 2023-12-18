@@ -51,8 +51,8 @@ def main_functionalities():
     borefield.Rb = 0.12  # equivalent borehole resistance (K/W)
 
     # set temperature boundaries
-    borefield.set_max_ground_temperature(16)   # maximum temperature
-    borefield.set_min_ground_temperature(0)    # minimum temperature
+    borefield.set_max_avg_fluid_temperature(16)   # maximum temperature
+    borefield.set_min_avg_fluid_temperature(0)    # minimum temperature
 
     # size borefield
     depth = borefield.size()
@@ -70,7 +70,7 @@ def main_functionalities():
     # print gives the array of monthly temperatures for peak cooling without showing the plot
     borefield.calculate_temperatures(depth=90)
     print("Result array for cooling peaks")
-    print(borefield.results_peak_cooling)
+    print(borefield.results.peak_cooling)
     print("---------------------------------------------")
 
     # size the borefield for quadrant 3
@@ -92,7 +92,7 @@ def main_functionalities():
     # disable the use of constant_Rb with the setup, in order to plot the profile correctly
     # when it is given as an argument to the size function, it will size correctly, but the plot will be with
     # constant Rb* since it has not been changed in the setup function
-    borefield.sizing_setup(use_constant_Rb=False)
+    borefield.calculation_setup(use_constant_Rb=False)
     depth = borefield.size()
     print("The borehole depth is: ", str(round(depth, 2)), "m for a sizing with dynamic Rb*.")
     borefield.print_temperature_profile(legend=True)

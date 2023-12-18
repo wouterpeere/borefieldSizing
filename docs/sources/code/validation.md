@@ -27,3 +27,10 @@ The equivalent borehole thermal resistance is validated with the commercial soft
 
 Validation/validation_effective_borehole_thermal_resistance.rst
 ```
+
+The deep sizing methodology, using a 1/depth assumption for the convergence of the borefield sizing when there is a temperature gradient can be found here.
+```{toctree}
+:maxdepth: 1
+
+Validation/deep_sizing.rst
+```

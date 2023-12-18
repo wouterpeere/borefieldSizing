@@ -1,4 +1,6 @@
 include GHEtool/test/*
+include GHEtool/test/methods/cases/*
+include GHEtool/test/methods/hourly_data/*
 exclude GHEtool/test/test_validation.py
 include GHEtool/Examples/*
 exclude GHEtool/gui/*

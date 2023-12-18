@@ -6,10 +6,11 @@ from __future__ import annotations
 from functools import partial
 from typing import TYPE_CHECKING
 import logging
+import warnings
 
 import numpy as np
 from GHEtool import Borefield, FluidData, MultipleUTube, GroundConstantTemperature, GroundFluxTemperature, GroundTemperatureGradient, CoaxialPipe
-from GHEtool.VariableClasses import GroundData, MonthlyGeothermalLoadAbsolute, HourlyGeothermalLoad
+from GHEtool.VariableClasses import GroundData, MonthlyGeothermalLoadAbsolute, HourlyGeothermalLoad, DATASET
 from GHEtool.gui.gui_structure import load_data_GUI
 import pygfunction as gt
 
@@ -42,8 +43,8 @@ def data_2_borefield(ds: DataStorage) -> tuple[Borefield, partial[[], None]]:
     )
     _set_boreholes(ds, borefield)
     # set temperature boundaries
-    borefield.set_max_ground_temperature(ds.option_max_temp)  # maximum temperature
-    borefield.set_min_ground_temperature(ds.option_min_temp)  # minimum temperature
+    borefield.set_max_avg_fluid_temperature(ds.option_max_temp)  # maximum temperature
+    borefield.set_min_avg_fluid_temperature(ds.option_min_temp)  # minimum temperature
 
     # set ground data
     borefield.set_ground_parameters(_create_ground_data(ds))
@@ -93,12 +94,23 @@ def data_2_borefield(ds: DataStorage) -> tuple[Borefield, partial[[], None]]:
             hourly_data.hourly_cooling_load = peak_cooling * (1 + 1 / ds.SEER)
             hourly_data.hourly_heating_load = peak_heating * (1 - 1 / ds.SCOP)
             borefield.load = hourly_data
+            borefield._secundary_borefield_load.hourly_heating_load = peak_heating
+            borefield._secundary_borefield_load.hourly_cooling_load = peak_cooling
+
+    # add dhw when needed
+    if ds.option_include_dhw == 1 and not ds.aim_optimize:
+        SCOP = ds.SCOP_DHW if ds.geo_load == 1 else 99999999999
+        borefield.load.dhw = ds.DHW * (1 - 1 / SCOP)
+        borefield._secundary_borefield_load.dhw = ds.DHW
 
     # set up the borefield sizing
-    borefield.sizing_setup(use_constant_Rb=ds.option_method_rb_calc == 0,
-                           L2_sizing=ds.option_method_size_depth == 0,
-                           L3_sizing=ds.option_method_size_depth == 1,
-                           L4_sizing=ds.option_method_size_depth == 2)
+    borefield.calculation_setup(use_constant_Rb=ds.option_method_rb_calc == 0,
+                                L2_sizing=ds.option_method_size_depth == 0,
+                                L3_sizing=ds.option_method_size_depth == 1,
+                                L4_sizing=ds.option_method_size_depth == 2,
+                                atol=ds.option_atol,
+                                rtol=ds.option_rtol,
+                                max_nb_of_iterations=ds.option_max_nb_of_iter)
 
     # set borefield simulation period
     borefield.simulation_period = ds.option_simu_period
@@ -192,7 +204,21 @@ def _create_fluid_data(ds: DataStorage) -> FluidData:
     -------
     FluidData
     """
-    return FluidData(ds.option_fluid_mass_flow, ds.option_fluid_conductivity, ds.option_fluid_density, ds.option_fluid_capacity, ds.option_fluid_viscosity)
+    fluid_data = FluidData(ds.option_fluid_mass_flow, ds.option_fluid_conductivity, ds.option_fluid_density, ds.option_fluid_capacity, ds.option_fluid_viscosity)
+    if ds.option_fluid_selector == 1:
+
+        # set warnings as error
+        warnings.filterwarnings("error")
+
+        # use pygfunction to get fluid properties
+        if ds.option_glycol_selector == 0:
+            fluid_data.import_fluid_from_pygfunction(gt.media.Fluid('MEG',
+                                                                    ds.option_glycol_percentage, ds.option_fluid_ref_temp))
+        else:
+            fluid_data.import_fluid_from_pygfunction(gt.media.Fluid('MPG',
+                                                                    ds.option_glycol_percentage, ds.option_fluid_ref_temp))
+    warnings.resetwarnings()
+    return fluid_data
 
 
 def _create_pipe_data(ds: DataStorage) -> MultipleUTube | CoaxialPipe:
@@ -234,16 +260,23 @@ def _create_ground_data(ds: DataStorage) -> GroundData:
     -------
     GroundData
     """
-    if ds.option_method_temp_gradient == 0:
+    if ds.option_source_ground_temperature == 0:
         return GroundConstantTemperature(ds.option_conductivity, ds.option_ground_temp, ds.option_heat_capacity * 1000)
-    if ds.option_method_temp_gradient == 1:
-        return GroundFluxTemperature(ds.option_conductivity, ds.option_ground_temp_gradient, ds.option_heat_capacity * 1000, ds.option_ground_heat_flux)
-    return GroundTemperatureGradient(ds.option_conductivity, ds.option_ground_temp_gradient, ds.option_heat_capacity * 1000, ds.option_temp_gradient)
+    if ds.option_source_ground_temperature == 1:
+        temperature, flux = DATASET[ds.option_ground_database[1]]
+        return GroundFluxTemperature(ds.option_conductivity, temperature, ds.option_heat_capacity * 1000, flux)
+    # custom
+    ground_temp = ds.option_ground_temp_gradient
+    if ds.option_flux_gradient == 0:
+        return GroundFluxTemperature(ds.option_conductivity, ground_temp, ds.option_heat_capacity * 1000,
+                              ds.option_ground_heat_flux)
+    return GroundTemperatureGradient(ds.option_conductivity, ground_temp, ds.option_heat_capacity * 1000,
+                                     ds.option_temp_gradient)
 
 
 def _create_monthly_loads_peaks(ds: DataStorage) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
     """
-    This function creates a the monthly loads based on the data entered in the GUI.
+    This function creates the monthly loads based on the data entered in the GUI.
 
     Parameters
     ----------
