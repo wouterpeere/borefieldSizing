@@ -12,7 +12,6 @@ class NoBorefieldFoundError(Exception):
 
 
 def size_borefield(borefield: Borefield, *, check_configs: bool = False) -> list[tuple]:
-    configs = []
     max_depth = borefield.borefield.depth_max
     best_config: tuple[list[tuple], int] = (borefield.create_start_config(), 1_000_000)
     borefield.calculate_temperatures(max_depth)
